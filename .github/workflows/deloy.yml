@@ -19,8 +19,8 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Tạo tag (latest + commit SHA)
-      - name: Extract metadata for Docker
+      # 🏷️ Tạo tags (latest + commit SHA)
+      - name: Extract metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
@@ -29,10 +29,10 @@ jobs:
             type=raw,value=latest
             type=sha
 
-      # Build image
-      - name: Build Docker image
+      # 🚀 Build + Push luôn
+      - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: false
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
